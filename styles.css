@@ -50,15 +50,6 @@ img {
   margin-inline: auto;
 }
 
-img {
-  loading: lazy; /* better in CSS with attr, but mostly handled in HTML */
-}
-
-.demo-card img {
-  will-change: transform;
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
 
 /* =============================================
    CINEMATIC VOICE ACTOR INTRO
@@ -71,16 +62,9 @@ img {
   overflow: hidden;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(255,50,43,.08) 0%,
-      transparent 40%
-    ),
-    #030406;
-
+  background: #030406;
   animation: introAway 1s ease forwards;
-  animation-delay: 6.0s; /* increased so BROADCAST READY finishes */
+  animation-delay: 4.0s;
 }
 
 /* Moving frequency grid */
@@ -88,15 +72,7 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 48px,
-      rgba(0,245,255,.018) 49px,
-      transparent 50px
-    );
-
+  background: repeating-linear-gradient(90deg, transparent 0 48px, rgba(0,245,255,.018) 49px, transparent 50px);
   animation: frequencyMove 6s linear infinite;
   opacity: .8;
 }
@@ -106,14 +82,7 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-
-  background:
-    radial-gradient(
-      circle at center,
-      transparent 35%,
-      rgba(0,0,0,.72) 100%
-    );
-
+  background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.72) 100%);
   pointer-events: none;
 }
 
@@ -129,9 +98,13 @@ img {
 
 /* Logo reveal only */
 .intro-mark h1 {
-  animation:
-    logoReveal 1.2s ease forwards,
-    chromaticShift 5s ease-in-out infinite;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vw, 11rem);
+  line-height: .82;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #f4f1ed;
+  text-shadow: -2px 0 rgba(255,50,43,.35), 2px 0 rgba(0,245,255,.35), 0 0 35px rgba(255,50,43,.35);
 }
 
 .intro-mark h1 span {
@@ -214,31 +187,14 @@ img {
 
 .plasma-line {
   position: relative;
-
   display: block;
   width: 280px;
   height: 4px;
-
   margin: 0 auto 32px;
   border-radius: 999px;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--red),
-    var(--cyan),
-    var(--red),
-    transparent
-  );
-
+  background: linear-gradient(90deg, transparent, var(--red), var(--cyan), var(--red), transparent);
   background-size: 200% 100%;
-
-  box-shadow:
-    0 0 15px var(--red),
-    0 0 35px rgba(0,245,255,.45);
-
-  overflow: hidden;
-
+  box-shadow: 0 0 15px var(--red), 0 0 35px rgba(0,245,255,.45);
   animation: plasmaLineFlow 5s linear infinite;
 }
 
@@ -799,13 +755,12 @@ time {
   border-radius: 10px;
   overflow: hidden;
   background: #12151a;
-  isolation: isolate;
-  transition: .25s;
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .demo-card:hover {
   transform: translateY(-7px);
-  border-color: rgba(255,255,255,.28);
+  box-shadow: 0 0 25px var(--red), 0 0 45px rgba(0, 245, 255, 0.35);
 }
 
 .demo-card img {
@@ -824,27 +779,16 @@ time {
   inset: 0;
   border: 2px solid transparent;
   border-radius: 10px;
-  background: linear-gradient(
-    90deg,
-    var(--red),
-    var(--cyan),
-    var(--red)
-  ) border-box;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) padding-box, 
-    linear-gradient(#fff 0 0);
+  background: linear-gradient(90deg, var(--red), var(--cyan), var(--red)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
   transition: all 0.4s ease;
-  pointer-events: none;
 }
 
 .demo-card:hover::after {
   opacity: 1;
-  box-shadow: 
-    0 0 20px var(--red),
-    0 0 40px var(--cyan);
 }
 
 /* Image remains nice and dark */
@@ -1397,29 +1341,118 @@ time {
   filter: brightness(1.1) drop-shadow(0 0 14px #FF0000);
 }
 
-/* Responsive adjustments */
-@media (max-width: 760px) {
-  .platform-logos {
-    gap: 32px;
-    flex-wrap: wrap;
-    margin-top: 40px;
-  }
-  
-  .platform-logos svg {
-    width: 30px;
-    height: 30px;
+/* =============================================
+   MOBILE IMPROVEMENTS (Targeted & Safe)
+   ============================================= */
+@media (max-width: 1050px) {
+  .demo-grid {
+    grid-template-columns: repeat(3, 1fr); /* Better transition */
   }
 }
 
-/* Mobile adjustments */
 @media (max-width: 760px) {
+  .site-header {
+    padding: 22px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .container {
+    width: calc(100% - 32px);
+  }
+
+  .hero {
+    min-height: 92vh;
+  }
+
+  .hero-inner {
+    padding-top: 90px;
+    text-align: center;
+  }
+
+  .hero h2 {
+    font-size: 4.2rem;
+    line-height: 1.05;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+  }
+
   .icon-services {
     gap: 28px;
     justify-content: center;
   }
-  .platform-logos {
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
     gap: 24px;
-    flex-wrap: wrap;
-    justify-content: center;
+  }
+
+  /* Demo Cards */
+  .demo-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .demo-card {
+    min-height: 380px;
+  }
+
+  /* Services & Contact */
+  .services-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .service-card {
+    padding: 40px 28px;
+  }
+
+  /* Bio Section */
+  .bio-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
+  }
+
+  .bio-grid img {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  /* General Spacing */
+  .section {
+    padding: 64px 0;
+  }
+
+  .section-divider {
+    width: calc(100% - 48px);
+    margin: 0 auto 50px;
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+    padding: 32px 20px;
+  }
+
+  /* Intro Mobile */
+  .intro-mark h1 {
+    font-size: 4.2rem;
+  }
+
+  .plasma-line {
+    width: 220px;
+  }
+
+  #intro-status {
+    min-width: 260px;
+    font-size: 0.95rem;
   }
 }
