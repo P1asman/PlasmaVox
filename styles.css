@@ -64,7 +64,7 @@ img {
   place-items: center;
   background: #030406;
   animation: introAway 1s ease forwards;
-  animation-delay: 4.0s;
+  animation-delay: 3.0s;
 }
 
 /* Moving frequency grid */
